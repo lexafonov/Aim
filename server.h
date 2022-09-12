@@ -1,22 +1,33 @@
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef UDPSERVER_H
+#define UDPSERVER_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QUdpSocket>
+#include <QTimer>
 
-namespace Ui {
-class Server;
-}
-
-class Server : public QMainWindow
+class Server : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Server(QWidget *parent = nullptr);
+    Server(QWidget *parent = 0);
     ~Server();
-
+public slots:
+    void StartBtnClicked();
+    void timeout();
 private:
-    Ui::Server *ui;
+    QLabel *TimerLabel;
+    QLineEdit *TextLineEdit;
+    QPushButton *StartBtn;
+    QVBoxLayout *mainLayout;
+    int port;
+    bool isStarted;
+    QUdpSocket *udpSocket;
+    QTimer *timer;
 };
 
-#endif // SERVER_H
+#endif // UDPSERVER_H
