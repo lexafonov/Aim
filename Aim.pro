@@ -27,11 +27,13 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
+        mythread.cpp \
         server.cpp \
         client.cpp
 
 HEADERS += \
         common.h \
+        mythread.h \
         server.h \
         client.h
 

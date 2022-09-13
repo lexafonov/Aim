@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QUdpSocket>
 #include "ui_server.h"
+#include "mythread.h"
 
 class Server : public QWidget, public Ui::Server
 {
@@ -19,11 +20,12 @@ private slots:
     void SliderOtstupVChanged(int value);
 
 private:
-    QUdpSocket *udpSocket;
     //Значения слайдеров
     qreal _angle;
     qreal _otH;
     qreal _otV;
+
+    MyThread _mythread;
 };
 
 #endif // UDPSERVER_H

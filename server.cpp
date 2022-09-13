@@ -14,9 +14,6 @@ Server::Server(QWidget *parent) : QWidget(parent, Qt::Window | Qt::WindowCloseBu
     connect(SliderOtstupH, SIGNAL(valueChanged(int)), this, SLOT(SliderOtstupHChanged(int)));
     connect(SliderOtstupV, SIGNAL(valueChanged(int)), this, SLOT(SliderOtstupVChanged(int)));
 
-
-    udpSocket=new QUdpSocket;   // Создаем QUdpSocket
-
     //Угол камеры по горизонтали, град
     _angle = 3;
     SliderAngle->setValue(_angle * 10.0);
@@ -35,20 +32,8 @@ void Server::StartBtnClicked()
 {
     dataD str{_angle, _otH, _otV};
 
-    int siz = sizeof(str);
-    auto ptr = reinterpret_cast<char*>(&str);
-
-    int length=0;
-    if(ptr == nullptr)
-    {
-        return;
-    }
-    // QHostAddress :: Broadcast отправляет на широковещательный адрес
-    //if((length=udpSocket->writeDatagram(msg.toLatin1(),msg.length(),QHostAddress::LocalHost,port))!=msg.length())
-    if((length=udpSocket->writeDatagram(ptr, siz, QHostAddress::LocalHost, _port)) != siz)
-    {
-        return;
-    }
+    _mythread.SetData(str);
+    _mythread.start(QThread::NormalPriority);
 }
 
 void Server::SliderAngleChanged(int value)
