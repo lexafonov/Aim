@@ -14,7 +14,7 @@ class Client : public QDialog
 
 public:
     Client(const int& port, QWidget *parent = 0);
-    ~Client();
+    ~Client() = default;
 public slots:
     void CloseBtnClicked();
     void dataReceived();

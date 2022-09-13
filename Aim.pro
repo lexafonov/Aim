@@ -31,6 +31,7 @@ SOURCES += \
         client.cpp
 
 HEADERS += \
+        common.h \
         server.h \
         client.h
 

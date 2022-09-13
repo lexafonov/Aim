@@ -2,8 +2,9 @@
 #include <QUdpSocket>
 #include <QMessageBox>
 #include <QHostAddress>
+#include "common.h"
 
-Client::Client(const int& prt, QWidget *parent) : QDialog(parent)
+Client::Client(const int& prt, QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
 {
     /* Инициализируем каждый элемент управления */
     ReceiveTextEdit = new QTextEdit(this);
@@ -24,11 +25,6 @@ Client::Client(const int& prt, QWidget *parent) : QDialog(parent)
     }
 }
 
-Client::~Client()
-{
-
-}
-
 void Client::CloseBtnClicked()
 {
     close();
@@ -41,7 +37,10 @@ void Client::dataReceived()
         QByteArray datagram;
         datagram.resize(udpSocket->pendingDatagramSize());
         udpSocket->readDatagram(datagram.data(),datagram.size());
-        QString msg=datagram.data();
+
+        auto str = reinterpret_cast<dataD*>(datagram.data());
+
+        QString msg = QString::number(str->angle) + "\r\n" + QString::number(str->otH) + "\r\n" + QString::number(str->otV) + "\r\n";
         ReceiveTextEdit->insertPlainText(msg);
     }
 }
