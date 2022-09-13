@@ -6,14 +6,12 @@
 
 Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
 {
-    /* Инициализируем каждый элемент управления */
-    ReceiveTextEdit = new QTextEdit(this);
-    CloseBtn = new QPushButton(tr("Close"),this);
-    /* Устанавливаем макет */
-    mainLayout=new QVBoxLayout(this);
-    mainLayout->addWidget(ReceiveTextEdit);
-    mainLayout->addWidget(CloseBtn);
-    connect(CloseBtn,SIGNAL(clicked()), this, SLOT(CloseBtnClicked()));
+    setupUi(this);
+
+    AngleLbl->setText(QString::number(2));
+    OtHLbl->setText(QString::number(0));
+    OtVLbl->setText(QString::number(0));
+
     // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
     udpSocket = new QUdpSocket(this);		// Создаем QUdpSocket
     connect(udpSocket,SIGNAL(readyRead()), this, SLOT(dataReceived()));
@@ -40,7 +38,10 @@ void Client::dataReceived()
 
         auto str = reinterpret_cast<dataD*>(datagram.data());
 
-        QString msg = QString::number(str->angle) + "\r\n" + QString::number(str->otH) + "\r\n" + QString::number(str->otV) + "\r\n";
-        ReceiveTextEdit->insertPlainText(msg);
+        //QString msg = QString::number(str->angle) + "\r\n" + QString::number(str->otH) + "\r\n" + QString::number(str->otV) + "\r\n";
+        //ReceiveTextEdit->insertPlainText(msg);
+        AngleLbl->setText(QString::number(str->angle));
+        OtHLbl->setText(QString::number(str->otH));
+        OtVLbl->setText(QString::number(str->otV));
     }
 }

@@ -1,16 +1,16 @@
-#include "mythread.h"
+#include "mythreadenter.h"
 #include "qhostaddress.h"
 
-MyThread::MyThread()
+MyThreadEnter::MyThreadEnter()
 {
     _udpSocket=new QUdpSocket;   // Создаем QUdpSocket
 }
 
-void MyThread::SetData(dataD &str){
+void MyThreadEnter::SetData(dataD &str){
     _struct = str;
 }
 
-void MyThread::run(){
+void MyThreadEnter::run(){
     //dataD str{_angle, _otH, _otV};
     int siz = sizeof(_struct);
     auto ptr = reinterpret_cast<char*>(&_struct);

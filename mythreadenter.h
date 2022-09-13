@@ -1,16 +1,16 @@
-#ifndef MYTHREAD_H
-#define MYTHREAD_H
+#ifndef MYTHREADENTER_H
+#define MYTHREADENTER_H
 
 #include <QThread>
 #include "common.h"
 #include <QUdpSocket>
 
 
-class MyThread : public QThread
+class MyThreadEnter : public QThread
 {
 public:
-    MyThread();
-    ~MyThread() = default;
+    MyThreadEnter();
+    ~MyThreadEnter() = default;
     void run();
     void SetData(dataD& str);
 private:
@@ -18,4 +18,4 @@ private:
     QUdpSocket* _udpSocket;
 };
 
-#endif // MYTHREAD_H
+#endif // MYTHREADENTER_H

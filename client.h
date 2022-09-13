@@ -7,8 +7,9 @@
 #include <QPushButton>
 #include <QUdpSocket>
 #include "server.h"
+#include "ui_client.h"
 
-class Client : public QDialog
+class Client : public QDialog, public Ui::Client
 {
     Q_OBJECT
 
@@ -19,9 +20,9 @@ public slots:
     void CloseBtnClicked();
     void dataReceived();
 private:
-    QTextEdit *ReceiveTextEdit;
-    QPushButton *CloseBtn;
-    QVBoxLayout *mainLayout;
+    //QTextEdit *ReceiveTextEdit;
+    //QPushButton *CloseBtn;
+    //QVBoxLayout *mainLayout;
     QUdpSocket *udpSocket;
 };
 

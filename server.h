@@ -4,7 +4,7 @@
 #include <QtWidgets>
 #include <QUdpSocket>
 #include "ui_server.h"
-#include "mythread.h"
+#include "mythreadenter.h"
 
 class Server : public QWidget, public Ui::Server
 {
@@ -25,7 +25,7 @@ private:
     qreal _otH;
     qreal _otV;
 
-    MyThread _mythread;
+    MyThreadEnter _mythread;
 };
 
 #endif // UDPSERVER_H
