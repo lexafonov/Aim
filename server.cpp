@@ -6,23 +6,18 @@
 Server::Server(QWidget *parent)
     : QWidget(parent)
 {
-    setWindowTitle(tr("UDP Server"));
     /* Инициализируем каждый элемент управления */
     TimerLabel = new QLabel(tr("Таймер:"),this);
     TextLineEdit = new QLineEdit(this);
-    StartBtn = new QPushButton(tr("начать"),this);
+    StartBtn = new QPushButton(tr("Отправить"),this);
     /* Устанавливаем макет */
     mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(TimerLabel);
     mainLayout->addWidget(TextLineEdit);
     mainLayout->addWidget(StartBtn);
     connect(StartBtn,SIGNAL(clicked()),this,SLOT(StartBtnClicked()));
-    port = 5555;		// Устанавливаем параметр номера порта UDP
-    isStarted = false;
-    udpSocket=new QUdpSocket;// Создаем QUdpSocket
-    timer = new QTimer(this);
-    // Регулярно отправлять информацию о трансляции
-    connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
+    port = 5555;                // Устанавливаем параметр номера порта UDP
+    udpSocket=new QUdpSocket;   // Создаем QUdpSocket
 }
 
 Server::~Server()
@@ -32,31 +27,18 @@ Server::~Server()
 
 void Server::StartBtnClicked()
 {
-    if(!isStarted)
-    {
-        StartBtn->setText("Стоп");
-        timer->start(1000);
-        isStarted=true;
-    }
-    else
-    {
-        StartBtn->setText("начать");
-        isStarted=false;
-        timer->stop();
-    }
-}
-
-void Server::timeout()
-{
     QString msg =TextLineEdit->text();
     qDebug()<<msg.toLatin1();
     int length=0;
-    if(msg=="")
+    if(msg == "")
     {
         return;
     }
-    if((length=udpSocket->writeDatagram(msg.toLatin1(),msg.length(),QHostAddress::Broadcast,port))!=msg.length())// QHostAddress :: Broadcast отправляет на широковещательный адрес
+    if((length=udpSocket->writeDatagram(msg.toLatin1(),msg.length(),QHostAddress::LocalHost,port))!=msg.length())// QHostAddress :: Broadcast отправляет на широковещательный адрес
     {
         return;
     }
+}
+int Server::GetPort() const{
+    return port;
 }

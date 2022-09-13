@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     Server w;
     w.show();
 
-    Client cl;
+    Client cl(w.GetPort());
     cl.show();
 
     return a.exec();

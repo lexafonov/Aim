@@ -6,13 +6,14 @@
 #include <QTextEdit>
 #include <QPushButton>
 #include <QUdpSocket>
+#include "server.h"
 
 class Client : public QDialog
 {
     Q_OBJECT
 
 public:
-    Client(QWidget *parent = 0);
+    Client(const int& port, QWidget *parent = 0);
     ~Client();
 public slots:
     void CloseBtnClicked();

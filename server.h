@@ -16,18 +16,16 @@ class Server : public QWidget
 public:
     Server(QWidget *parent = 0);
     ~Server();
+    int GetPort() const;
 public slots:
     void StartBtnClicked();
-    void timeout();
 private:
     QLabel *TimerLabel;
     QLineEdit *TextLineEdit;
     QPushButton *StartBtn;
     QVBoxLayout *mainLayout;
     int port;
-    bool isStarted;
     QUdpSocket *udpSocket;
-    QTimer *timer;
 };
 
 #endif // UDPSERVER_H

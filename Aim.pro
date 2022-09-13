@@ -34,9 +34,7 @@ HEADERS += \
         server.h \
     client.h
 
-FORMS += \
-        server.ui \
-    client.ui
+FORMS +=
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
