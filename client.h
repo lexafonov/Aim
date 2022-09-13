@@ -13,7 +13,7 @@ class Client : public QDialog
     Q_OBJECT
 
 public:
-    Client(const int& port, QWidget *parent = 0);
+    Client(QWidget *parent = 0);
     ~Client() = default;
 public slots:
     void CloseBtnClicked();
@@ -22,7 +22,6 @@ private:
     QTextEdit *ReceiveTextEdit;
     QPushButton *CloseBtn;
     QVBoxLayout *mainLayout;
-    int port;
     QUdpSocket *udpSocket;
 };
 

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     Server w;
     w.show();
 
-    Client cl(w.GetPort());
+    Client cl;
     cl.show();
 
     return a.exec();

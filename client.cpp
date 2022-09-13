@@ -4,7 +4,7 @@
 #include <QHostAddress>
 #include "common.h"
 
-Client::Client(const int& prt, QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
+Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
 {
     /* Инициализируем каждый элемент управления */
     ReceiveTextEdit = new QTextEdit(this);
@@ -13,11 +13,11 @@ Client::Client(const int& prt, QWidget *parent) : QDialog(parent, Qt::Window | Q
     mainLayout=new QVBoxLayout(this);
     mainLayout->addWidget(ReceiveTextEdit);
     mainLayout->addWidget(CloseBtn);
-    connect(CloseBtn,SIGNAL(clicked()),this,SLOT(CloseBtnClicked()));
-    port = prt;                             // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
+    connect(CloseBtn,SIGNAL(clicked()), this, SLOT(CloseBtnClicked()));
+    // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
     udpSocket = new QUdpSocket(this);		// Создаем QUdpSocket
-    connect(udpSocket,SIGNAL(readyRead()),this,SLOT(dataReceived()));
-    bool result=udpSocket->bind(port);// Привязать порт
+    connect(udpSocket,SIGNAL(readyRead()), this, SLOT(dataReceived()));
+    bool result=udpSocket->bind(_port);// Привязать порт
     if(!result)
     {
         QMessageBox::information(this,"error","udp socket create error!");

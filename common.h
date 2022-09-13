@@ -9,4 +9,6 @@ struct dataD{
     qreal otV;
 };
 
+constexpr int _port = 5555;                // Устанавливаем параметр номера порта UDP
+
 #endif // COMMON_H

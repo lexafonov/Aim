@@ -11,18 +11,14 @@ class Server : public QWidget, public Ui::Server
 public:
     Server(QWidget *parent = 0);
     ~Server() = default;
-    int GetPort() const;
 public slots:
     void StartBtnClicked();
 private slots:
-    void on_SliderAngle_valueChanged(int value);
-
-    void on_SliderOtstupH_valueChanged(int value);
-
-    void on_SliderOtstupV_valueChanged(int value);
+    void SliderAngleChanged(int value);
+    void SliderOtstupHChanged(int value);
+    void SliderOtstupVChanged(int value);
 
 private:
-    int _port;
     QUdpSocket *udpSocket;
     //Значения слайдеров
     qreal _angle;

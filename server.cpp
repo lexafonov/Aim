@@ -6,21 +6,15 @@
 
 Server::Server(QWidget *parent) : QWidget(parent, Qt::Window | Qt::WindowCloseButtonHint)
 {
-    /* Инициализируем каждый элемент управления */
-    //TimerLabel = new QLabel(tr("Таймер:"),this);
-    //TextLineEdit = new QLineEdit(this);
-    //StartBtn = new QPushButton(tr("Отправить"),this);
-    /* Устанавливаем макет */
-    //mainLayout = new QVBoxLayout(this);
-    //mainLayout->addWidget(TimerLabel);
-    //mainLayout->addWidget(TextLineEdit);
-    //mainLayout->addWidget(StartBtn);
-
     setupUi(this);
 
-    connect(ButtonSend,SIGNAL(clicked()),this,SLOT(StartBtnClicked()));
+    connect(ButtonSend, SIGNAL(clicked()), this, SLOT(StartBtnClicked()));
 
-    _port = 5555;                // Устанавливаем параметр номера порта UDP
+    connect(SliderAngle, SIGNAL(valueChanged(int)), this, SLOT(SliderAngleChanged(int)));
+    connect(SliderOtstupH, SIGNAL(valueChanged(int)), this, SLOT(SliderOtstupHChanged(int)));
+    connect(SliderOtstupV, SIGNAL(valueChanged(int)), this, SLOT(SliderOtstupVChanged(int)));
+
+
     udpSocket=new QUdpSocket;   // Создаем QUdpSocket
 
     //Угол камеры по горизонтали, град
@@ -51,30 +45,27 @@ void Server::StartBtnClicked()
     }
     // QHostAddress :: Broadcast отправляет на широковещательный адрес
     //if((length=udpSocket->writeDatagram(msg.toLatin1(),msg.length(),QHostAddress::LocalHost,port))!=msg.length())
-    if((length=udpSocket->writeDatagram(ptr, siz, QHostAddress::LocalHost,_port)) != siz)
+    if((length=udpSocket->writeDatagram(ptr, siz, QHostAddress::LocalHost, _port)) != siz)
     {
         return;
     }
 }
-int Server::GetPort() const{
-    return _port;
-}
 
-void Server::on_SliderAngle_valueChanged(int value)
+void Server::SliderAngleChanged(int value)
 {
     _angle = value / 10.0;
     AngleLbl->setText(QString::number(_angle));
 }
 
 
-void Server::on_SliderOtstupH_valueChanged(int value)
+void Server::SliderOtstupHChanged(int value)
 {
     _otH = value / 100.0;
     OtstupHLbl->setText(QString::number(_otH));
 }
 
 
-void Server::on_SliderOtstupV_valueChanged(int value)
+void Server::SliderOtstupVChanged(int value)
 {
     _otV = value / 100.0;
     OtstupVLbl->setText(QString::number(_otV));
