@@ -1,18 +1,13 @@
 #ifndef UDPSERVER_H
 #define UDPSERVER_H
 
-#include <QWidget>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QVBoxLayout>
+#include <QtWidgets>
 #include <QUdpSocket>
-#include <QTimer>
+#include "ui_server.h"
 
-class Server : public QWidget
+class Server : public QWidget, public Ui::Server
 {
     Q_OBJECT
-
 public:
     Server(QWidget *parent = 0);
     ~Server();
@@ -20,10 +15,10 @@ public:
 public slots:
     void StartBtnClicked();
 private:
-    QLabel *TimerLabel;
-    QLineEdit *TextLineEdit;
-    QPushButton *StartBtn;
-    QVBoxLayout *mainLayout;
+    //QLabel *TimerLabel;
+    //QLineEdit *TextLineEdit;
+    //QPushButton *StartBtn;
+    //QVBoxLayout *mainLayout;
     int port;
     QUdpSocket *udpSocket;
 };
