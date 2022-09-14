@@ -9,6 +9,7 @@
 #include "server.h"
 #include "ui_client.h"
 #include "threadout.h"
+#include <QtWidgets>
 
 class Client : public QDialog, public Ui::Client
 {
@@ -33,6 +34,9 @@ private:
     QBrush black = QBrush(QColor(0, 0, 0));
     QBrush white = QBrush(QColor(255, 255, 255));
     QBrush ser = QBrush(QColor(100, 100, 100));
+
+    QGraphicsScene* scene = new QGraphicsScene(QRectF(-100,-100,300,300));
+    QGraphicsRectItem * pRect;
 };
 
 #endif // UDPCLIENT_H

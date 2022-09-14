@@ -4,6 +4,7 @@
 #include <QHostAddress>
 #include "common.h"
 #include <qcombobox.h>
+#include <QRectF>
 
 Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
 {
@@ -28,6 +29,9 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseBu
     comboBoxAim->addItems(lstAim);
     comboBoxAim->setEditable(true);
     connect(comboBoxAim, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Client::changedAimCombo);
+
+    graphicsView->setScene(scene);
+    pRect = scene->addRect(QRectF(-100,-100,120,80), QPen(Qt::black), QBrush(Qt::green));
 }
 Client::~Client(){
     myThread->notRun();
@@ -50,20 +54,21 @@ void Client::changedColorCombo(int t){
     qDebug() << t;
     if(t == 0){
         //Черный
-        graphicsView->setBackgroundBrush(black);
+        pRect->setBrush(QBrush(Qt::black));
     }
     else if(t == 1){
         //Белый
-        graphicsView->setBackgroundBrush(white);
+        pRect->setBrush(QBrush(Qt::white));
     }
     else if(t == 2){
         //Серый
-        graphicsView->setBackgroundBrush(ser);
+        pRect->setBrush(QBrush(Qt::gray));
     }
     else{
         //Ошибка
         qDebug() << "Некорректное значение переменной t\r\n";
     }
+    graphicsView->update();
 }
 
 void Client::changedAimCombo(int t){
