@@ -11,12 +11,13 @@ class threadOut : public QThread
 {
     Q_OBJECT
 public:
-    //threadOut() = default;
     threadOut(QObject * ptr = nullptr);
-    ~threadOut() = default;
+    ~threadOut();
     void run();
+    void notRun();
 private:
     QUdpSocket* udpSocket;
+    bool isRun;
 public slots:
     void dataReceived();
 signals:

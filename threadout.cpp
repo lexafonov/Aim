@@ -11,12 +11,13 @@ threadOut::threadOut(QObject* ptr) : QThread(ptr)  {
       //QMessageBox::information(this, "error", "udp socket create error!");
         return;
     }
+    isRun = true;
 }
 
 void threadOut::run(){
     // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
     //udpSocket = QUdpSocket(this);         // Создаем QUdpSocket
-    for(;;){}
+    for(;isRun;){}
 }
 void threadOut::dataReceived()
 {
@@ -28,4 +29,10 @@ void threadOut::dataReceived()
         //AngleLbl->setText(QString::number(str->angle));
         //OtHLbl->setText(QString::number(str->otH));
         //OtVLbl->setText(QString::number(str->otV));
+}
+void threadOut::notRun(){
+    isRun = false;
+}
+threadOut::~threadOut(){
+    delete udpSocket;
 }
