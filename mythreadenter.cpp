@@ -4,7 +4,7 @@
 MyThreadEnter::MyThreadEnter(QObject* ptr) : QThread(ptr)
 {
     _udpSocket=new QUdpSocket(this);   // Создаем QUdpSocket
-    _udpSocket->moveToThread(this);
+    //_udpSocket->moveToThread(this);
 }
 
 void MyThreadEnter::SetData(dataD &str){

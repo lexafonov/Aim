@@ -3,8 +3,8 @@
 
 threadOut::threadOut(QObject* ptr) : QThread(ptr)  {
     udpSocket = new QUdpSocket(this);
-    auto yyy = connect(udpSocket, &QUdpSocket::readyRead, this, &threadOut::dataReceived);
-    udpSocket->moveToThread(this);
+    connect(udpSocket, &QUdpSocket::readyRead, this, &threadOut::dataReceived);
+    //udpSocket->moveToThread(this);
     bool result=udpSocket->bind(_port);     // Привязать порт
     if(!result)
     {
