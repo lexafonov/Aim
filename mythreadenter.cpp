@@ -1,9 +1,10 @@
 #include "mythreadenter.h"
 #include "qhostaddress.h"
 
-MyThreadEnter::MyThreadEnter()
+MyThreadEnter::MyThreadEnter(QObject* ptr) : QThread(ptr)
 {
-    _udpSocket=new QUdpSocket;   // Создаем QUdpSocket
+    _udpSocket=new QUdpSocket(this);   // Создаем QUdpSocket
+    _udpSocket->moveToThread(this);
 }
 
 void MyThreadEnter::SetData(dataD &str){
@@ -24,4 +25,8 @@ void MyThreadEnter::run(){
     {
         return;
     }
+}
+MyThreadEnter::~MyThreadEnter()
+{
+    delete _udpSocket;   // Создаем QUdpSocket
 }

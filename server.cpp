@@ -28,12 +28,16 @@ Server::Server(QWidget *parent) : QWidget(parent, Qt::Window | Qt::WindowCloseBu
     OtstupVLbl->setText(QString::number(_otV));
 }
 
+Server::~Server(){
+    //delete _mythread;
+}
+
 void Server::StartBtnClicked()
 {
     dataD str{_angle, _otH, _otV};
 
-    _mythread.SetData(str);
-    _mythread.start(QThread::NormalPriority);
+    _mythread->SetData(str);
+    _mythread->start(QThread::NormalPriority);
 }
 
 void Server::SliderAngleChanged(int value)

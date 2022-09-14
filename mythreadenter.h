@@ -9,8 +9,8 @@
 class MyThreadEnter : public QThread
 {
 public:
-    MyThreadEnter();
-    ~MyThreadEnter() = default;
+    MyThreadEnter(QObject * ptr = nullptr);
+    ~MyThreadEnter();
     void run();
     void SetData(dataD& str);
 private:

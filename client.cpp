@@ -13,22 +13,31 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseBu
     OtVLbl->setText(QString::number(0));
 
     // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
-    udpSocket = new QUdpSocket(this);		// Создаем QUdpSocket
+    /*udpSocket = new QUdpSocket(this);		// Создаем QUdpSocket
     connect(udpSocket,SIGNAL(readyRead()), this, SLOT(dataReceived()));
     bool result=udpSocket->bind(_port);// Привязать порт
     if(!result)
     {
         QMessageBox::information(this,"error","udp socket create error!");
         return;
-    }
-}
+    }*/
 
+    myThread = new threadOut();
+    //udpSocket->moveToThread(myThread);
+    connect(myThread, &threadOut::reprintDataWindow, this, &Client::reDataWind);
+    myThread->start(QThread::NormalPriority);
+}
+Client::~Client(){
+    myThread->quit();
+    myThread->wait();
+    delete myThread;
+}
 void Client::CloseBtnClicked()
 {
     close();
 }
 
-void Client::dataReceived()
+/*void Client::dataReceived()
 {
     while(udpSocket->hasPendingDatagrams())// Есть дейтаграмма для чтения
     {
@@ -40,8 +49,11 @@ void Client::dataReceived()
 
         //QString msg = QString::number(str->angle) + "\r\n" + QString::number(str->otH) + "\r\n" + QString::number(str->otV) + "\r\n";
         //ReceiveTextEdit->insertPlainText(msg);
-        AngleLbl->setText(QString::number(str->angle));
-        OtHLbl->setText(QString::number(str->otH));
-        OtVLbl->setText(QString::number(str->otV));
+        reDataWind(*str);
     }
+}*/
+void Client::reDataWind(dataD str){
+    AngleLbl->setText(QString::number(str.angle));
+    OtHLbl->setText(QString::number(str.otH));
+    OtVLbl->setText(QString::number(str.otV));
 }

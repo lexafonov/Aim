@@ -29,13 +29,15 @@ SOURCES += \
         main.cpp \
         mythreadenter.cpp \
         server.cpp \
-        client.cpp
+        client.cpp \
+        threadout.cpp
 
 HEADERS += \
         common.h \
         mythreadenter.h \
         server.h \
-        client.h
+        client.h \
+        threadout.h
 
 FORMS += \
     client.ui \

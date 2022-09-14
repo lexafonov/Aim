@@ -8,6 +8,7 @@
 #include <QUdpSocket>
 #include "server.h"
 #include "ui_client.h"
+#include "threadout.h"
 
 class Client : public QDialog, public Ui::Client
 {
@@ -15,15 +16,17 @@ class Client : public QDialog, public Ui::Client
 
 public:
     Client(QWidget *parent = 0);
-    ~Client() = default;
+    ~Client();
 public slots:
     void CloseBtnClicked();
-    void dataReceived();
+    //void dataReceived();
+    void reDataWind(dataD);
 private:
     //QTextEdit *ReceiveTextEdit;
     //QPushButton *CloseBtn;
     //QVBoxLayout *mainLayout;
     QUdpSocket *udpSocket;
+    threadOut* myThread;
 };
 
 #endif // UDPCLIENT_H
