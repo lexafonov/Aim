@@ -6,11 +6,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Server w;
-    w.show();
-
     Client cl;
     cl.show();
+
+    Server w;
+    w.show();
 
     return a.exec();
 }
