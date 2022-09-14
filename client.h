@@ -14,12 +14,16 @@
 class Client : public QDialog, public Ui::Client
 {
     Q_OBJECT
-
 public:
-    Client(QWidget *parent = 0);
+    Client(QWidget *parent = nullptr);
     ~Client();
     void changedColorCombo(int);
     void changedAimCombo(int);
+protected:
+    /* Определяем виртуальный метод родительского класса
+     * для отрисовки содержимого виджета
+     * */
+    void paintEvent(QPaintEvent *event);
 public slots:
     void CloseBtnClicked();
     //void dataReceived();
@@ -30,13 +34,8 @@ private:
 
     QStringList lstColor;
     QStringList lstAim;
-
-    QBrush black = QBrush(QColor(0, 0, 0));
-    QBrush white = QBrush(QColor(255, 255, 255));
-    QBrush ser = QBrush(QColor(100, 100, 100));
-
-    QGraphicsScene* scene = new QGraphicsScene(QRectF(-100,-100,300,300));
-    QGraphicsRectItem * pRect;
+    //QGraphicsScene* scene = new QGraphicsScene(QRectF(-100,-100,300,300));
+    //QGraphicsRectItem * pRect;
 };
 
 #endif // UDPCLIENT_H

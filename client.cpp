@@ -29,10 +29,35 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseBu
     comboBoxAim->addItems(lstAim);
     comboBoxAim->setEditable(true);
     connect(comboBoxAim, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Client::changedAimCombo);
-
-    graphicsView->setScene(scene);
-    pRect = scene->addRect(QRectF(-100,-100,120,80), QPen(Qt::black), QBrush(Qt::green));
 }
+
+void Client::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event);
+    QPainter painter(this); // Создаём объект отрисовщика
+    // Устанавливаем кисть абриса
+    painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
+    painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+    int hh = height() - 100;
+    int ww = width();
+    painter.fillRect(0, 0, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
+    if(comboBoxColorF->currentIndex() == 0){
+        //Черный
+        painter.fillRect(0, 0, ww, hh,QBrush(Qt::black, Qt::SolidPattern));
+    }
+    else if(comboBoxColorF->currentIndex() == 1){
+        //Белый
+        painter.fillRect(0, 0, ww, hh,QBrush(Qt::white, Qt::SolidPattern));
+    }
+    else if(comboBoxColorF->currentIndex() == 2){
+        //Серый
+        painter.fillRect(0, 0, ww, hh,QBrush(Qt::gray, Qt::SolidPattern));
+    }
+    else{
+        painter.fillRect(0, 0, ww, hh,QBrush(Qt::white, Qt::SolidPattern));
+    }
+}
+
 Client::~Client(){
     myThread->notRun();
     myThread->quit();
@@ -53,22 +78,19 @@ void Client::reDataWind(dataD str){
 void Client::changedColorCombo(int t){
     qDebug() << t;
     if(t == 0){
-        //Черный
-        pRect->setBrush(QBrush(Qt::black));
+
     }
     else if(t == 1){
-        //Белый
-        pRect->setBrush(QBrush(Qt::white));
+
     }
     else if(t == 2){
-        //Серый
-        pRect->setBrush(QBrush(Qt::gray));
+
     }
     else{
         //Ошибка
         qDebug() << "Некорректное значение переменной t\r\n";
     }
-    graphicsView->update();
+    repaint();
 }
 
 void Client::changedAimCombo(int t){
