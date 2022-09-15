@@ -18,6 +18,7 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseBu
     myThread = new threadOut();
     connect(myThread, &threadOut::reprintDataWindow, this, &Client::reDataWind);
     myThread->start(QThread::NormalPriority);
+
     //Список цветов фон
     lstColor << "Чёрный" << "Белый" << "Серый";
     comboBoxColorF->addItems(lstColor);
@@ -38,24 +39,34 @@ void Client::paintEvent(QPaintEvent *event)
     // Устанавливаем кисть абриса
     painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+    int marg = 5;
     int hh = height() - 100;
-    int ww = width();
-    painter.fillRect(0, 0, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
+    int ww = width() - 2 * marg;
+
+    painter.fillRect(marg, marg, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
     if(comboBoxColorF->currentIndex() == 0){
         //Черный
-        painter.fillRect(0, 0, ww, hh,QBrush(Qt::black, Qt::SolidPattern));
+        painter.fillRect(marg, marg, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
     }
     else if(comboBoxColorF->currentIndex() == 1){
         //Белый
-        painter.fillRect(0, 0, ww, hh,QBrush(Qt::white, Qt::SolidPattern));
+        painter.fillRect(marg, marg, ww, hh, QBrush(Qt::white, Qt::SolidPattern));
     }
     else if(comboBoxColorF->currentIndex() == 2){
         //Серый
-        painter.fillRect(0, 0, ww, hh,QBrush(Qt::gray, Qt::SolidPattern));
+        painter.fillRect(marg, marg, ww, hh, QBrush(Qt::gray, Qt::SolidPattern));
     }
     else{
-        painter.fillRect(0, 0, ww, hh,QBrush(Qt::white, Qt::SolidPattern));
+        painter.fillRect(marg, marg, ww, hh, QBrush(Qt::white, Qt::SolidPattern));
     }
+    //Теперь отрисовка зеленого кретстика
+    //Сначала попробуем определить координаты
+    int xC = marg + ww / 2;
+    int yC = marg + hh / 2;
+    int hKr = 20;
+    painter.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
+    painter.drawLine(xC - hKr, yC, xC + hKr, yC);
+    painter.drawLine(xC, yC - hKr, xC, yC + hKr);
 }
 
 Client::~Client(){
@@ -64,6 +75,7 @@ Client::~Client(){
     myThread->wait();
     delete myThread;
 }
+
 void Client::CloseBtnClicked()
 {
     close();
@@ -75,24 +87,10 @@ void Client::reDataWind(dataD str){
     OtVLbl->setText(QString::number(str.otV));
 }
 
-void Client::changedColorCombo(int t){
-    qDebug() << t;
-    if(t == 0){
-
-    }
-    else if(t == 1){
-
-    }
-    else if(t == 2){
-
-    }
-    else{
-        //Ошибка
-        qDebug() << "Некорректное значение переменной t\r\n";
-    }
+void Client::changedColorCombo(int){
     repaint();
 }
 
-void Client::changedAimCombo(int t){
-
+void Client::changedAimCombo(int){
+    repaint();
 }
