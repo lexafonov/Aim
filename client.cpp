@@ -60,13 +60,28 @@ void Client::paintEvent(QPaintEvent *event)
         painter.fillRect(marg, marg, ww, hh, QBrush(Qt::white, Qt::SolidPattern));
     }
     //Теперь отрисовка зеленого кретстика
-    //Сначала попробуем определить координаты
-    int xC = marg + ww / 2;
-    int yC = marg + hh / 2;
+    qreal xC = marg + ww / 2.0;
+    qreal yC = marg + hh / 2.0;
     int hKr = 20;
+    QLineF lineFH(xC - hKr, yC, xC + hKr, yC);
+    QLineF lineFV(xC, yC - hKr, xC, yC + hKr);
     painter.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
-    painter.drawLine(xC - hKr, yC, xC + hKr, yC);
-    painter.drawLine(xC, yC - hKr, xC, yC + hKr);
+    painter.drawLine(lineFH);
+    painter.drawLine(lineFV);
+
+    //А теперь вставка SVG-изображения
+    QRectF rectSvg(marg, marg, ww, hh);
+    QSvgRenderer svgr;
+    if(comboBoxAim->currentIndex() == 0){
+        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair red.svg"));
+    }
+    else if(comboBoxAim->currentIndex() == 1){
+        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair black.svg"));
+    }
+    else{
+        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair black.svg"));
+    }
+    svgr.render(&painter, rectSvg);
 }
 
 Client::~Client(){

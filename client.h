@@ -10,6 +10,7 @@
 #include "ui_client.h"
 #include "threadout.h"
 #include <QtWidgets>
+#include <QtSvg>
 
 class Client : public QDialog, public Ui::Client
 {
@@ -34,8 +35,7 @@ private:
 
     QStringList lstColor;
     QStringList lstAim;
-    //QGraphicsScene* scene = new QGraphicsScene(QRectF(-100,-100,300,300));
-    //QGraphicsRectItem * pRect;
+    QSvgWidget svg;
 };
 
 #endif // UDPCLIENT_H
