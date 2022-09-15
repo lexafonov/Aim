@@ -49,6 +49,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    svg/crosshair black.svg \
-    svg/crosshair red.svg
+RESOURCES += \
+    imagesResurses.qrc

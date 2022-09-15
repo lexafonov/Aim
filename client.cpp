@@ -73,13 +73,13 @@ void Client::paintEvent(QPaintEvent *event)
     QRectF rectSvg(marg, marg, ww, hh);
     QSvgRenderer svgr;
     if(comboBoxAim->currentIndex() == 0){
-        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair red.svg"));
+        svgr.load(QString(":images/svg/crosshair red.svg"));
     }
     else if(comboBoxAim->currentIndex() == 1){
-        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair black.svg"));
+        svgr.load(QString(":images/svg/crosshair black.svg"));
     }
     else{
-        svgr.load(QString("D:/Job/iProgramm/QT/766UPTK/Aim/svg/crosshair black.svg"));
+        svgr.load(QString(":images/svg/crosshair black.svg"));
     }
     svgr.render(&painter, rectSvg);
 }
