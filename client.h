@@ -25,6 +25,8 @@ protected:
      * для отрисовки содержимого виджета
      * */
     void paintEvent(QPaintEvent *event);
+    void resizeEvent(QResizeEvent *);
+
 public slots:
     void CloseBtnClicked();
     //void dataReceived();
@@ -33,6 +35,8 @@ private:
     qreal angle;
     qreal otH;
     qreal otV;
+
+    qreal widt = 800;
 
     QUdpSocket *udpSocket;
     threadOut* myThread;

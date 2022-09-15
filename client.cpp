@@ -30,6 +30,8 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window)
     comboBoxAim->addItems(lstAim);
     comboBoxAim->setEditable(true);
     connect(comboBoxAim, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &Client::changedAimCombo);
+
+    resize(widt, widt * 3 / 4 + 100);
 }
 
 void Client::paintEvent(QPaintEvent *event)
@@ -40,8 +42,9 @@ void Client::paintEvent(QPaintEvent *event)
     painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
     int marg = 5;
-    int hh = height() - 100;
     int ww = width() - 2 * marg;
+    //int hh = height() - 100;
+    int hh = ww * 3 / 4;
 
     painter.fillRect(marg, marg, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
     if(comboBoxColorF->currentIndex() == 0){
@@ -72,7 +75,7 @@ void Client::paintEvent(QPaintEvent *event)
     //А теперь вставка SVG-изображения
     //Размер прицела в зависимости от входного угла
     int razmPix = 1024 / 8;
-    qreal length = angle * razmPix * 6000.0 / 360.0 / 20.0;
+    qreal length = angle * razmPix * 6000.0 / 360.0 / 20.0 * (ww / widt);
     qreal coordC = length / 2.0;
     qreal smH = xC - coordC + otH * ww / 2.0;
     qreal smV = yC - coordC + otV * hh / 2.0;
@@ -120,4 +123,11 @@ void Client::changedColorCombo(int){
 
 void Client::changedAimCombo(int){
     repaint();
+}
+void Client::resizeEvent(QResizeEvent *)
+{
+    //При изменении ширины задать максимальную высоту
+    int ww = width();
+    int hh = ww * 3 / 4 + 100;
+    setMinimumHeight(hh);
 }
