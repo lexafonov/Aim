@@ -6,7 +6,7 @@
 #include <qcombobox.h>
 #include <QRectF>
 
-Client::Client(QWidget *parent) : QDialog(parent, Qt::Window | Qt::WindowCloseButtonHint)
+Client::Client(QWidget *parent) : QDialog(parent, Qt::Window)
 {
     setupUi(this);
 
@@ -70,7 +70,13 @@ void Client::paintEvent(QPaintEvent *event)
     painter.drawLine(lineFV);
 
     //А теперь вставка SVG-изображения
-    QRectF rectSvg(marg, marg, ww, hh);
+    //Размер прицела в зависимости от входного угла
+    int razmPix = 1024 / 8;
+    qreal length = angle * razmPix * 6000.0 / 360.0 / 20.0;
+    qreal coordC = length / 2.0;
+    qreal smH = xC - coordC + otH * ww / 2.0;
+    qreal smV = yC - coordC + otV * hh / 2.0;
+    QRectF rectSvg(smH, smV, length, length);
     QSvgRenderer svgr;
     if(comboBoxAim->currentIndex() == 0){
         svgr.load(QString(":images/svg/crosshair red.svg"));
@@ -100,6 +106,12 @@ void Client::reDataWind(dataD str){
     AngleLbl->setText(QString::number(str.angle));
     OtHLbl->setText(QString::number(str.otH));
     OtVLbl->setText(QString::number(str.otV));
+
+    angle = str.angle;
+    otH = str.otH;
+    otV = str.otV;
+
+    repaint();
 }
 
 void Client::changedColorCombo(int){

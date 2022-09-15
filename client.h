@@ -30,6 +30,10 @@ public slots:
     //void dataReceived();
     void reDataWind(dataD);
 private:
+    qreal angle;
+    qreal otH;
+    qreal otV;
+
     QUdpSocket *udpSocket;
     threadOut* myThread;
 
