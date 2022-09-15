@@ -41,10 +41,14 @@ void Client::paintEvent(QPaintEvent *event)
     // Устанавливаем кисть абриса
     painter.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap));
     painter.setBrush(QBrush(Qt::black, Qt::SolidPattern));
+
     int marg = 5;
     int ww = width() - 2 * marg;
     //int hh = height() - 100;
     int hh = ww * 3 / 4;
+
+    //Задать максимальный размер отрисовки графики
+    painter.setClipRect(marg, marg, ww, hh);
 
     painter.fillRect(marg, marg, ww, hh, QBrush(Qt::black, Qt::SolidPattern));
     if(comboBoxColorF->currentIndex() == 0){
