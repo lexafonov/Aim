@@ -1,10 +1,4 @@
 #include "client.h"
-#include <QUdpSocket>
-#include <QMessageBox>
-#include <QHostAddress>
-#include "common.h"
-#include <qcombobox.h>
-#include <QRectF>
 
 Client::Client(QWidget *parent) : QDialog(parent, Qt::Window)
 {
@@ -15,9 +9,8 @@ Client::Client(QWidget *parent) : QDialog(parent, Qt::Window)
     OtVLbl->setText(QString::number(0));
 
     // Устанавливаем параметр номера порта UDP, указываем для мониторинга данных по этому порту
-    myThread = new threadOut();
-    connect(myThread, &threadOut::reprintDataWindow, this, &Client::reDataWind);
-    myThread->start(QThread::NormalPriority);
+    connect(&myThread, &threadOut::reprintDataWindow, this, &Client::reDataWind);
+    myThread.start(QThread::NormalPriority);
 
     //Список цветов фон
     lstColor << "Чёрный" << "Белый" << "Серый";
@@ -44,7 +37,6 @@ void Client::paintEvent(QPaintEvent *event)
 
     int marg = 5;
     int ww = width() - 2 * marg;
-    //int hh = height() - 100;
     int hh = ww * 3 / 4;
 
     //Задать максимальный размер отрисовки графики
@@ -98,10 +90,9 @@ void Client::paintEvent(QPaintEvent *event)
 }
 
 Client::~Client(){
-    myThread->notRun();
-    myThread->quit();
-    myThread->wait();
-    delete myThread;
+    myThread.notRun();
+    myThread.quit();
+    myThread.wait();
 }
 
 void Client::CloseBtnClicked()

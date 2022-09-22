@@ -2,14 +2,8 @@
 #define UDPCLIENT_H
 
 #include <QDialog>
-#include <QVBoxLayout>
-#include <QTextEdit>
-#include <QPushButton>
-#include <QUdpSocket>
-#include "server.h"
 #include "ui_client.h"
 #include "threadout.h"
-#include <QtWidgets>
 #include <QtSvg>
 
 class Client : public QDialog, public Ui::Client
@@ -29,7 +23,6 @@ protected:
 
 public slots:
     void CloseBtnClicked();
-    //void dataReceived();
     void reDataWind(dataD);
 private:
     qreal angle;
@@ -38,8 +31,7 @@ private:
 
     qreal widt = 800;
 
-    QUdpSocket *udpSocket;
-    threadOut* myThread;
+    threadOut myThread;
 
     QStringList lstColor;
     QStringList lstAim;

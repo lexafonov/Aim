@@ -11,7 +11,6 @@ class Server : public QWidget, public Ui::Server
     Q_OBJECT
 public:
     Server(QWidget *parent = 0);
-    ~Server();
 public slots:
     void StartBtnClicked();
 private slots:
@@ -25,7 +24,7 @@ private:
     qreal _otH;
     qreal _otV;
 
-    MyThreadEnter* _mythread = new MyThreadEnter;
+    MyThreadEnter _mythread;
 };
 
 #endif // UDPSERVER_H

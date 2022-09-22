@@ -3,19 +3,16 @@
 
 #include <QThread>
 #include "common.h"
-#include <QUdpSocket>
 
 
 class MyThreadEnter : public QThread
 {
 public:
-    MyThreadEnter(QObject * ptr = nullptr);
-    ~MyThreadEnter();
+    using QThread::QThread;
     void run();
     void SetData(dataD& str);
 private:
     dataD _struct;
-    QUdpSocket* _udpSocket;
 };
 
 #endif // MYTHREADENTER_H
