@@ -9,8 +9,5 @@ int main(int argc, char *argv[])
     Client cl;
     cl.show();
 
-    Server w;
-    w.show();
-
     return a.exec();
 }

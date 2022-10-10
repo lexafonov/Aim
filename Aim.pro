@@ -28,21 +28,16 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mythreadenter.cpp \
-        server.cpp \
         client.cpp \
         threadout.cpp
 
 HEADERS += \
         common.h \
-        mythreadenter.h \
-        server.h \
         client.h \
         threadout.h
 
 FORMS += \
-    client.ui \
-    server.ui
+    client.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
